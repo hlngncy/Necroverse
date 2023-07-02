@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Spiral - Green
+  m_Shader: {fileID: 4800000, guid: 736cb6e77470e2b41808b6a1dce7a100, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 801c4a239bdaf9941aa7b5510f5c0da8, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _NebulaTex:
+        m_Texture: {fileID: 2800000, guid: 8fd2497f958064b489f84f289225f510, type: 3}
+        m_Scale: {x: 0.4, y: 0.7}
+        m_Offset: {x: 0.5, y: 0.5}
+    - _ShockwaveTex:
+        m_Texture: {fileID: 2800000, guid: 9d192641ab2830542a1ed03d397381ec, type: 3}
+        m_Scale: {x: -0.5, y: 1}
+        m_Offset: {x: 0.5, y: 0.5}
+    m_Ints: []
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.23880595, g: 0.17599508, b: 0.078413896, a: 1}
+    - _NebulaColor: {r: 0.21641791, g: 0.21641791, b: 0.21641791, a: 0.5019608}
+    - _ShockwaveColor: {r: 0.3432836, g: 0.3432836, b: 0.3432836, a: 1}
+  m_BuildTextureStacks: []
