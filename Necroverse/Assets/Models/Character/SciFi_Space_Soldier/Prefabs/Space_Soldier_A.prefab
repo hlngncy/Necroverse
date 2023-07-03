@@ -469,6 +469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427246}
   - component: {fileID: 9530324}
+  - component: {fileID: 7955525955783405779}
   m_Layer: 0
   m_Name: Space_Soldier_A
   m_TagString: Untagged
@@ -516,6 +517,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &7955525955783405779
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.26746678
+  m_Height: 2.1827998
+  m_Direction: 1
+  m_Center: {x: 0.01750791, y: 1.091012, z: -0.009903789}
 --- !u!1 &198750
 GameObject:
   m_ObjectHideFlags: 0
