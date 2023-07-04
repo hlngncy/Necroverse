@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIView : MonoBehaviour
+public class UIView : MonoBehaviour,IView, IUIView
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnHurt(HealtInfo healthInfo)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnShoot(bool isShooting)
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+
+    public void OnDead()
+    {
+        throw new System.NotImplementedException();
     }
 }

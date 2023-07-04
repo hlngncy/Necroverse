@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,25 +14,41 @@ public class PlayerController : MonoBehaviour, IController
     [SerializeField] private float _groundDrag;
     [SerializeField] private EntityModel _playerStats;
     [SerializeField] private Animator _animator;
+
+    private float _movementSpeed;
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
     private bool _isGrounded;
 
+    //views
+    //[SerializeField] private UIView _uiView;
+    private IView _animationView;
+
+
     //events
-    private UnityEvent _shoot = new UnityEvent();
+    private UnityEvent<bool> _shoot = new UnityEvent<bool>();
     private UnityEvent<HealtInfo> _hurt = new UnityEvent<HealtInfo>();
     private UnityEvent _die = new UnityEvent();
+    private bool _dead;
+
     void Start()
     {
+        _movementSpeed = _playerStats.MovementSpeed;
+        _animationView = GetComponent<IView>();
         _rb.freezeRotation = true;
         _hurt.AddListener(_playerStats.OnHurt);
+        _shoot.AddListener(_animationView.OnShoot);
+        //_shoot.AddListener(_uiView.OnShoot);
+        _die.AddListener(_animationView.OnDead);
+        //_die.AddListener(_uiView.OnDead);
     }
     
     void Update()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * .5f + .2f, _groundLayer);
+        if (_dead) return;
         GetInput();
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * .5f + .2f, _groundLayer);
         if (_isGrounded) _rb.drag = _groundDrag;
         else _rb.drag = 0;
     }
@@ -40,30 +57,23 @@ public class PlayerController : MonoBehaviour, IController
     {
         MovePlayer();
         LimitSpeed();
-        CheckAnimations();
     }
-
-    private void CheckAnimations()
-    {
-        _animator.SetFloat("Speed", _rb.velocity.magnitude);
-        _animator.SetFloat("X", _rb.velocity.x);
-        _animator.SetFloat("Y", _rb.velocity.y);
-    }
+    
 
     // Update is called once per frame
     private void GetInput()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
-        if (Input.GetMouseButtonDown(0)) Shoot();
-        if (Input.GetMouseButtonUp(0)) _animator.SetBool("Aiming", false);
+        if (Input.GetMouseButtonDown(0)) Shoot(true);
+        if (Input.GetMouseButtonUp(0)) Shoot(false);
     }
     
     #region Movement
     private void MovePlayer()
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
-        _rb.AddForce(_moveDirection.normalized * (_playerStats.MovementSpeed * 10) , ForceMode.Force);
+        _rb.AddForce(_moveDirection.normalized * (_movementSpeed * 10) , ForceMode.Force);
         
     }
 
@@ -71,18 +81,18 @@ public class PlayerController : MonoBehaviour, IController
     {
         Vector3 flatVel = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
 
-        if (flatVel.magnitude > _playerStats.MovementSpeed)
+        if (flatVel.magnitude > _movementSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * _playerStats.MovementSpeed;
+            Vector3 limitedVel = flatVel.normalized * _movementSpeed;
             _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
         }
     }
     #endregion
 
-    private void Shoot()
+    private void Shoot(bool isShooting)
     {
-        _animator.SetBool("Aiming", true);
-        _shoot.Invoke();
+        _shoot.Invoke(isShooting);
+        _movementSpeed = isShooting ? _movementSpeed * .5f : _playerStats.MovementSpeed;
     }
 
     public void Hurt(int damage)
@@ -91,5 +101,12 @@ public class PlayerController : MonoBehaviour, IController
         healtInfo.damage = damage;
         healtInfo.currentHealth = 10;
         _hurt.Invoke(healtInfo);
+    }
+    
+    
+
+    public void Dead()
+    {
+        _dead = true;
     }
 }
