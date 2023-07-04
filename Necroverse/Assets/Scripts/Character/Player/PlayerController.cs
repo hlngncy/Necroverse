@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour, IController
     [SerializeField] private float _playerHeight;
     [SerializeField] private float _groundDrag;
     [SerializeField] private EntityModel _playerStats;
+    [SerializeField] private Animator _animator;
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
@@ -38,14 +40,23 @@ public class PlayerController : MonoBehaviour, IController
     {
         MovePlayer();
         LimitSpeed();
+        CheckAnimations();
     }
-    
+
+    private void CheckAnimations()
+    {
+        _animator.SetFloat("Speed", _rb.velocity.magnitude);
+        _animator.SetFloat("X", _rb.velocity.x);
+        _animator.SetFloat("Y", _rb.velocity.y);
+    }
+
     // Update is called once per frame
     private void GetInput()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
         if (Input.GetMouseButtonDown(0)) Shoot();
+        if(Input.GetMouseButtonUp(0)) _animator.SetBool("Aiming", false);
     }
     
     #region Movement
@@ -53,6 +64,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
         _rb.AddForce(_moveDirection.normalized * (_playerStats.MovementSpeed * 10) , ForceMode.Force);
+        
     }
 
     private void LimitSpeed()
@@ -69,7 +81,9 @@ public class PlayerController : MonoBehaviour, IController
 
     private void Shoot()
     {
-        _shoot.Invoke();    
+        _animator.SetBool("Aiming", true);
+        Debug.Log(_rb.velocity.x);
+        _shoot.Invoke();
     }
 
     public void Hurt(int damage)
