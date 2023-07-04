@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour, IController
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
         if (Input.GetMouseButtonDown(0)) Shoot();
-        if(Input.GetMouseButtonUp(0)) _animator.SetBool("Aiming", false);
+        if (Input.GetMouseButtonUp(0)) _animator.SetBool("Aiming", false);
     }
     
     #region Movement
@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour, IController
     private void Shoot()
     {
         _animator.SetBool("Aiming", true);
-        Debug.Log(_rb.velocity.x);
         _shoot.Invoke();
     }
 
