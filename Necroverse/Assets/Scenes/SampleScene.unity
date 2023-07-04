@@ -187,15 +187,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032917048a10fc14081aeab383a37f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 8
   _orientation: {fileID: 935771156}
   _rb: {fileID: 269589770}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _playerHeight: 2
   _groundDrag: 2
-  _jumpPower: 1
+  _playerStats: {fileID: 11400000, guid: 6a028de4266e89f45afa66f3ce502dbd, type: 2}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

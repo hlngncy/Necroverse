@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IController
 {
     //fields
-    [SerializeField] private int _movementSpeed;
     [SerializeField] private Transform _orientation;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private float _playerHeight;
     [SerializeField] private float _groundDrag;
-    
+    [SerializeField] private EntityModel _playerStats;
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb.freezeRotation = true;
+        _hurt.AddListener(_playerStats.OnHurt);
     }
     
     void Update()
@@ -52,16 +52,16 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
-        _rb.AddForce(_moveDirection.normalized * (_movementSpeed * 10) , ForceMode.Force);
+        _rb.AddForce(_moveDirection.normalized * (_playerStats.MovementSpeed * 10) , ForceMode.Force);
     }
 
     private void LimitSpeed()
     {
         Vector3 flatVel = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
 
-        if (flatVel.magnitude > _movementSpeed)
+        if (flatVel.magnitude > _playerStats.MovementSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * _movementSpeed;
+            Vector3 limitedVel = flatVel.normalized * _playerStats.MovementSpeed;
             _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
         }
     }
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         _shoot.Invoke();    
     }
 
-    private void Hurt(int damage)
+    public void Hurt(int damage)
     {
         HealtInfo healtInfo = new HealtInfo();
         healtInfo.damage = damage;
