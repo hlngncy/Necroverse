@@ -35,7 +35,7 @@ public class PlayerCamera : MonoBehaviour
         _rotationX -= _mouseY;
         
         _rotationX = Mathf.Clamp(_rotationX , -20f, 45f);
-        _holder.rotation = Quaternion.Euler(_rotationX, _rotationY, 0);
+        _holder.rotation = Quaternion.Euler(_rotationX , _rotationY, 0);
         _player.rotation = Quaternion.Euler(0, _rotationY, 0);
         _orientation.rotation = Quaternion.Euler(0, _rotationY, 0);
         _holder.position = _playerCameraPosition.position;
