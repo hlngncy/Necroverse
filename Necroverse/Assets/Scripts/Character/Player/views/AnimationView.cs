@@ -7,6 +7,7 @@ public class AnimationView : MonoBehaviour, IView
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody _rb;
+    [SerializeField] private ShootVFX _vfx;
 
     private void Update()
     {
@@ -24,6 +25,7 @@ public class AnimationView : MonoBehaviour, IView
     public void OnShoot(bool isShooting)
     {
         _animator.SetBool("Aiming", isShooting);
+        _vfx.EnableVFX(isShooting);
     }
 
     public void OnDead()

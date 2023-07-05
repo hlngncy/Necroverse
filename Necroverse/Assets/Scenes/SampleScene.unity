@@ -808,6 +808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 1866800907}
   _rb: {fileID: 269589770}
+  _vfx: {fileID: 871119386}
 --- !u!1 &269996696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,6 +2136,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824621335}
   m_CullTransparentMesh: 1
+--- !u!114 &871119386 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5261801067669325034, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
+  m_PrefabInstance: {fileID: 910919432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdadb70917ef2d40a718123c9462f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &910919432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2189,6 +2201,14 @@ PrefabInstance:
     - target: {fileID: 427246, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4618920971091037750, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4618920971091037750, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
