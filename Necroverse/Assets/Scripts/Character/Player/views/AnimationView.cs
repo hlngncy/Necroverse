@@ -30,4 +30,10 @@ public class AnimationView : MonoBehaviour, IView
     {
         _animator.SetBool("Dead", true);
     }
+
+    public void OnReload()
+    {
+        _animator.SetBool("Reloading", true);
+        
+    }
 }

@@ -793,6 +793,7 @@ MonoBehaviour:
   _groundDrag: 2
   _playerStats: {fileID: 11400000, guid: 6a028de4266e89f45afa66f3ce502dbd, type: 2}
   _animator: {fileID: 1866800907}
+  _uiView: {fileID: 2026229356}
 --- !u!114 &269589773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3486,6 +3487,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2026229354}
+  - component: {fileID: 2026229356}
+  - component: {fileID: 2026229355}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -3515,6 +3518,52 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 603.244, y: 129.7726}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &2026229355
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026229353}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2026229356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026229353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca3a9f6fe41df74dbeb35c0707cc6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthBar: {fileID: 1531456016}
+  _ammo:
+  - {fileID: 524537983}
+  - {fileID: 1594403010}
+  - {fileID: 159479383}
+  - {fileID: 594885947}
+  - {fileID: 315250724}
+  - {fileID: 664680501}
+  - {fileID: 504793363}
+  - {fileID: 755208623}
+  - {fileID: 1150172647}
+  - {fileID: 1215183847}
+  - {fileID: 1262420775}
+  - {fileID: 1839237273}
+  - {fileID: 276009966}
+  - {fileID: 1095258964}
+  - {fileID: 109320117}
+  - {fileID: 1536481118}
+  - {fileID: 213629473}
+  - {fileID: 1660202990}
+  - {fileID: 305790623}
+  - {fileID: 148628588}
 --- !u!1 &2070156000
 GameObject:
   m_ObjectHideFlags: 0

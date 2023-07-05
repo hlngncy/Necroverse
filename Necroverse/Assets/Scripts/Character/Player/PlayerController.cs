@@ -20,9 +20,10 @@ public class PlayerController : MonoBehaviour, IController
     private float _verticalInput;
     private Vector3 _moveDirection;
     private bool _isGrounded;
+    private bool _dead;
 
     //views
-    //[SerializeField] private UIView _uiView;
+    [SerializeField] private UIView _uiView;
     private IView _animationView;
 
 
@@ -30,7 +31,8 @@ public class PlayerController : MonoBehaviour, IController
     private UnityEvent<bool> _shoot = new UnityEvent<bool>();
     private UnityEvent<HealtInfo> _hurt = new UnityEvent<HealtInfo>();
     private UnityEvent _die = new UnityEvent();
-    private bool _dead;
+    private UnityEvent _reload = new UnityEvent();
+    
 
     void Start()
     {
@@ -39,9 +41,9 @@ public class PlayerController : MonoBehaviour, IController
         _rb.freezeRotation = true;
         _hurt.AddListener(_playerStats.OnHurt);
         _shoot.AddListener(_animationView.OnShoot);
-        //_shoot.AddListener(_uiView.OnShoot);
+        _shoot.AddListener(_uiView.OnShoot);
         _die.AddListener(_animationView.OnDead);
-        //_die.AddListener(_uiView.OnDead);
+        _die.AddListener(_uiView.OnDead);
     }
     
     void Update()
