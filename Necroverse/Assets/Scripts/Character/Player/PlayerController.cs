@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour, IController
     private UnityEvent _die = new UnityEvent();
     private UnityEvent _reload = new UnityEvent();
     private UnityEvent _fire = new UnityEvent();
+    private float _reloadTime;
 
 
     void Start()
@@ -81,6 +82,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
+        if (Time.time < _reloadTime + 2) return;
         if (Input.GetMouseButtonUp(0) || _ammoReserve == 0)
         {
             _isShooting = false;
@@ -146,6 +148,7 @@ public class PlayerController : MonoBehaviour, IController
     
     private void OnReload()
     {
+        _reloadTime = Time.time;
         _ammoReserve = _magazineSize;
     }
     public void Hurt(int damage)

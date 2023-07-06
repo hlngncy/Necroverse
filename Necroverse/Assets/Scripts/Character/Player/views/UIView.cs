@@ -59,6 +59,8 @@ public class UIView : MonoBehaviour,IView, IUIView
 
     public void OnReload()
     {
-        _magazinBar.value = _magazinBar.maxValue;
+        //DOValue(float to, float duration, bool snapping = false);
+        _magazinBar.DOValue(_magazinBar.maxValue, 2F).SetEase(Ease.Linear);
+        //_magazinBar.value = _magazinBar.maxValue;
     }
 }
