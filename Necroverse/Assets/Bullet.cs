@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     
     private void Update()
     {
-        transform.Translate((_destination - transform.position).normalized * (Time.deltaTime * 100));
+        transform.Translate((_destination - transform.position).normalized * (Time.deltaTime * 180));
     }
 
     private void OnTriggerEnter(Collider other)
