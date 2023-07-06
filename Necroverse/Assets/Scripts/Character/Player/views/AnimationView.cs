@@ -35,7 +35,7 @@ public class AnimationView : MonoBehaviour, IView
 
     public void OnReload()
     {
-        _animator.SetBool("Reloading", true);
-        
+        _animator.SetTrigger("Reload");
     }
+
 }

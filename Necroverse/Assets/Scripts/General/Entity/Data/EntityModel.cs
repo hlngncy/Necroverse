@@ -11,6 +11,8 @@ public class EntityModel : ScriptableObject, IModel
     private int _currentHealth;
 
     //properties
+
+    public int MaxHealth => _maxHealth;
     public int CurrentHealth => _currentHealth;
     public short MovementSpeed => _movementSpeed;
     public ushort AttackPower => _attackPower;
