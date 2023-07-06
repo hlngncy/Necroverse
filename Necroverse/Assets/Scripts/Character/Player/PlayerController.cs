@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,21 +8,28 @@ public class PlayerController : MonoBehaviour, IController
     [SerializeField] private Transform _orientation;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private float _playerHeight;
     [SerializeField] private float _groundDrag;
-    [SerializeField] private EntityModel _playerStats;
-    [SerializeField] private Animator _animator;
+    [SerializeField] private EntityModel _playerStats; 
+    [SerializeField] private Transform _gunPosition;
 
+    private float _reloadTime;
     private float _movementSpeed;
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
     private bool _isGrounded;
     private bool _dead;
+    private bool _isRealoading;
+    private bool _isShooting;
     private ushort _ammoReserve;
     private ushort _magazineSize;
-    private bool _isShooting;
+    private Ray _ray;
+    private RaycastHit _hit;
+    private Camera _camera;
+    private Transform _t;
+    private Vector3 _destination;
+    
 
     //views
     [SerializeField] private UIView _uiView;
@@ -37,7 +42,6 @@ public class PlayerController : MonoBehaviour, IController
     private UnityEvent _die = new UnityEvent();
     private UnityEvent _reload = new UnityEvent();
     private UnityEvent _fire = new UnityEvent();
-    private float _reloadTime;
 
 
     void Start()
@@ -48,6 +52,8 @@ public class PlayerController : MonoBehaviour, IController
         _animationView = GetComponent<IView>();
         _rb.freezeRotation = true;
         _uiView.MaxHealth = _playerStats.MaxHealth;
+        _camera = Camera.main;
+        _t = this.transform;
         
         _hurt.AddListener(_playerStats.OnHurt);
         _shoot.AddListener(_animationView.OnShoot);
@@ -65,7 +71,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         if (_dead) return;
         GetInput();
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * .5f + .2f, _groundLayer);
+        _isGrounded = Physics.Raycast(_t.position, Vector3.down, _playerHeight * .5f + .2f, _groundLayer);
         if (_isGrounded) _rb.drag = _groundDrag;
         else _rb.drag = 0;
     }
@@ -102,13 +108,14 @@ public class PlayerController : MonoBehaviour, IController
     private void MovePlayer()
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
-        _rb.AddForce(_moveDirection.normalized * (_movementSpeed * 10) , ForceMode.Force);
-        
+        //_rb.AddForce( , ForceMode.Force);
+        _rb.velocity += _moveDirection.normalized * (_movementSpeed * 10);
     }
 
     private void LimitSpeed()
     {
-        Vector3 flatVel = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        var velocity = _rb.velocity;
+        Vector3 flatVel = new Vector3(velocity.x, 0f, velocity.z);
 
         if (flatVel.magnitude > _movementSpeed)
         {
@@ -130,10 +137,18 @@ public class PlayerController : MonoBehaviour, IController
     
     private void OnFire()
     {
-        //TODO Spawn ammo
-        Debug.Log("ammo reserve = " + _ammoReserve);
+        _ray = _camera.ScreenPointToRay(Input.mousePosition);
+        
+        if (Physics.Raycast(_ray, out _hit)) 
+            _destination = _hit.point;
+        else
+        {
+            _destination = _ray.GetPoint(100);
+        }
+        BulletSpawner.Instance.GetBullet(_gunPosition.position, Quaternion.identity, _playerStats.AttackPower, _destination);
         _ammoReserve--;
     }
+
     
     private void Shoot()
     {
@@ -148,6 +163,8 @@ public class PlayerController : MonoBehaviour, IController
     
     private void OnReload()
     {
+        _isShooting = false;
+        Shoot();
         _reloadTime = Time.time;
         _ammoReserve = _magazineSize;
     }
