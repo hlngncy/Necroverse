@@ -28,7 +28,7 @@ public class EntityModel : ScriptableObject, IModel
         _currentHealth = _maxHealth;
     }
     
-    public void OnHurt(HealtInfo healthInfo)
+    public void OnHurt(HealthInfo healthInfo)
     {
         _currentHealth -= healthInfo.damage;
     }

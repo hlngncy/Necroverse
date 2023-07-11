@@ -16,7 +16,7 @@ public class AnimationView : MonoBehaviour, IView
 
     private void ArrangeMovementAnimations()
     {
-        _animator.SetFloat("Speed", _rb.velocity.magnitude);
+        _animator.SetFloat("Speed", Mathf.Clamp(Mathf.Abs(_rb.velocity.x)+Mathf.Abs(_rb.velocity.z), 0, 1));
         _animator.SetFloat("X", transform.InverseTransformDirection(_rb.velocity).x);
         _animator.SetFloat("Y", transform.InverseTransformDirection(_rb.velocity).z);
     }

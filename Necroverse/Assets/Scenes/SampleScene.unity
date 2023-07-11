@@ -664,7 +664,6 @@ MonoBehaviour:
   _topClamp: 70
   _bottomClamp: -30
   _cameraAngleOverride: 0
-  _lockCameraPosition: 0
 --- !u!114 &269589775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2042,7 +2041,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1109984399
 GameObject:
@@ -2711,7 +2710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1539481679264539993, guid: 4ba5cbea767d9b54eb7a655b769517da, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1539481679264539993, guid: 4ba5cbea767d9b54eb7a655b769517da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2764,6 +2763,10 @@ PrefabInstance:
     - target: {fileID: 2168068442106150883, guid: 4ba5cbea767d9b54eb7a655b769517da, type: 3}
       propertyPath: m_Name
       value: monster_scavenger_Skin_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168068442106150883, guid: 4ba5cbea767d9b54eb7a655b769517da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2513138530070425341, guid: 4ba5cbea767d9b54eb7a655b769517da, type: 3}
       propertyPath: m_Layer
@@ -2872,58 +2875,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 9530324, guid: 7aa6f6434be94e44583bd055d3a42eee, type: 3}
   m_PrefabInstance: {fileID: 910919432}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1940499290
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1940499291}
-  - component: {fileID: 1940499292}
-  m_Layer: 0
-  m_Name: CameraHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1940499291
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940499290}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.9628539, y: 2.7, z: 19.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1940499292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940499290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1d416c2d2bb8a4f86d1990bebedf1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cinemachineCameraTarget: {fileID: 0}
-  _orientation: {fileID: 0}
-  _sensX: 300
-  _sensY: 300
-  _topClamp: 70
-  _bottomClamp: -30
-  _cameraAngleOverride: 0
-  _lockCameraPosition: 0
 --- !u!1 &1943599272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3574,7 +3525,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2145139848
 PrefabInstance:

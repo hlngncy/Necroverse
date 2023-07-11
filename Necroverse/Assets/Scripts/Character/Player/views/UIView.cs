@@ -16,8 +16,6 @@ public class UIView : MonoBehaviour,IView, IUIView
     
     private Observable<int> maxHealth = new Observable<int>();
     private ushort _activeAmmo;
-    private ushort _lastAmmo = 0;
-    private bool _isShooting;
     public int MaxHealth { set { maxHealth.Value = value; } }
 
     public UIView()
@@ -36,7 +34,7 @@ public class UIView : MonoBehaviour,IView, IUIView
         _healthBar.maxValue = current;
         _healthBar.value = current;
     }
-    public void OnHurt(HealtInfo healthInfo)
+    public void OnHurt(HealthInfo healthInfo)
     {
         _healthBar.value = healthInfo.currentHealth - healthInfo.damage;
     }
@@ -44,7 +42,6 @@ public class UIView : MonoBehaviour,IView, IUIView
     public void OnShoot(bool isShooting)
     {
         //TODO Add Vignet effect
-        _isShooting = isShooting;
     }
     
     public void OnDead()

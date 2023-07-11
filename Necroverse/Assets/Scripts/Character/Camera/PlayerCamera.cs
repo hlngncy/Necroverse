@@ -18,8 +18,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float _topClamp = 70.0f;
     [SerializeField] private float _bottomClamp = -30.0f;
     [SerializeField] private float _cameraAngleOverride = 0.0f;
-    [SerializeField] private bool _lockCameraPosition = false;
-    
+
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
     

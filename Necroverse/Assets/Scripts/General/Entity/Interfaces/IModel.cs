@@ -1,4 +1,4 @@
 ﻿public interface IModel
 {
-    public void OnHurt(HealtInfo healthInfo);
+    public void OnHurt(HealthInfo healthInfo);
 }

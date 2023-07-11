@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour, IController
     private Vector3 _moveDirection;
     private bool _isGrounded;
     private bool _dead;
-    private bool _isRealoading;
+    private bool _isReloading;
     private bool _isShooting;
     private ushort _ammoReserve;
     private ushort _magazineSize;
@@ -42,12 +42,16 @@ public class PlayerController : MonoBehaviour, IController
 
     //events
     private UnityEvent<bool> _shoot = new UnityEvent<bool>();
-    private UnityEvent<HealtInfo> _hurt = new UnityEvent<HealtInfo>();
+    private UnityEvent<HealthInfo> _hurt = new UnityEvent<HealthInfo>();
     private UnityEvent _die = new UnityEvent();
     private UnityEvent _reload = new UnityEvent();
     private UnityEvent _fire = new UnityEvent();
     private float _targetRotation;
     private float _rotationVelocity = 10;
+    
+    //coroutine
+    private WaitForSeconds _wait = new WaitForSeconds(.1f);
+    private Coroutine _coroutine;
 
 
     void Start()
@@ -114,7 +118,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
         _rb.velocity += _moveDirection.normalized;
-        if (_verticalInput != 0)
+        if (_moveDirection != Vector3.zero)
         {
             _t.rotation = Quaternion.Lerp(_t.rotation, _orientation.rotation, Time.deltaTime*_rotationVelocity);
             //_playerModel.rotation = _orientation.rotation;
@@ -140,7 +144,7 @@ public class PlayerController : MonoBehaviour, IController
         while(_ammoReserve != 0 && _isShooting)
         {
             _fire.Invoke();
-            yield return new WaitForSeconds(.1f);
+            yield return _wait;
         }
     }
     
@@ -179,10 +183,10 @@ public class PlayerController : MonoBehaviour, IController
     }
     public void Hurt(int damage)
     {
-        HealtInfo healtInfo = new HealtInfo();
-        healtInfo.damage = damage;
-        healtInfo.currentHealth = 10;
-        _hurt.Invoke(healtInfo);
+        HealthInfo healthInfo = new HealthInfo();
+        healthInfo.damage = damage;
+        healthInfo.currentHealth = 10;
+        _hurt.Invoke(healthInfo);
     }
     #endregion
     
