@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +14,8 @@ public class PlayerController : MonoBehaviour, IController
     [SerializeField] private float _groundDrag;
     [SerializeField] private EntityModel _playerStats; 
     [SerializeField] private Transform _gunPosition;
+    [SerializeField] private Transform _playerModel;
+    [SerializeField] private Transform _mainCamera;
 
     private float _reloadTime;
     private float _movementSpeed;
@@ -42,6 +46,8 @@ public class PlayerController : MonoBehaviour, IController
     private UnityEvent _die = new UnityEvent();
     private UnityEvent _reload = new UnityEvent();
     private UnityEvent _fire = new UnityEvent();
+    private float _targetRotation;
+    private float _rotationVelocity = 10;
 
 
     void Start()
@@ -50,7 +56,7 @@ public class PlayerController : MonoBehaviour, IController
         _ammoReserve = 19;
         _movementSpeed = _playerStats.MovementSpeed;
         _animationView = GetComponent<IView>();
-        _rb.freezeRotation = true;
+        //_rb.freezeRotation = true;
         _uiView.MaxHealth = _playerStats.MaxHealth;
         _camera = Camera.main;
         _t = this.transform;
@@ -81,7 +87,6 @@ public class PlayerController : MonoBehaviour, IController
         MovePlayer();
         LimitSpeed();
     }
-    
 
     // Update is called once per frame
     private void GetInput()
@@ -108,8 +113,12 @@ public class PlayerController : MonoBehaviour, IController
     private void MovePlayer()
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
-        //_rb.AddForce( , ForceMode.Force);
-        _rb.velocity += _moveDirection.normalized * (_movementSpeed * 10);
+        _rb.velocity += _moveDirection.normalized;
+        if (_verticalInput != 0)
+        {
+            _t.rotation = Quaternion.Lerp(_t.rotation, _orientation.rotation, Time.deltaTime*_rotationVelocity);
+            //_playerModel.rotation = _orientation.rotation;
+        }
     }
 
     private void LimitSpeed()
