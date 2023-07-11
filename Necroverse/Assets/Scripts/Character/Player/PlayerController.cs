@@ -144,6 +144,7 @@ public class PlayerController : MonoBehaviour, IController
         while(_ammoReserve != 0 && _isShooting)
         {
             _fire.Invoke();
+            _t.rotation = _orientation.rotation;
             yield return _wait;
         }
     }
